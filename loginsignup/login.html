@@ -13,15 +13,38 @@
       <div class="login-title">Login</div>
       <div class="input-group">
         <label for="username">Username</label>
-        <input type="text" id="username" >
+        <input type="text" id="username" class="userName" >
       </div>
       <div class="input-group">
         <label for="password">Password</label>
-        <input type="password" id="password" >
+        <input type="password" id="password" class="password">
         <div class="forgot-password">Forgot Password?</div>
       </div>
-      <button class="login-button">Login</button>
-      <div class="signup-now"> <a href="#">Sign Up Now</a></div>
+      <button class="login-button" type="submit">Login</button>
+      <div class="signup-now"> <a href="Signup.html">Sign Up Now</a></div>
     </div>
+
+    <script>
+      var myUsername = document.querySelector(".userName");
+      var myPassword = document.querySelector(".password");
+      var button = document.querySelector("button");
+
+      button.addEventListener("click", ()=>{
+
+        var obj={
+            name:myUsername.value,
+            password:myPassword.value
+        };
+
+        fetch("http://localhost:5005/api/v1/users/posts/", {
+            method: "POST",
+            headers:{
+              "content-type":"application/json"
+            },
+            body:JSON.stringify(obj)
+
+        });
+      })
+    </script>
 </body>
 </html>
