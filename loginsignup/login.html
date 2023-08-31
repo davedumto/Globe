@@ -25,27 +25,38 @@
     </div>
 
     <script>
-      var myUsername = document.querySelector(".userName");
-      var myPassword = document.querySelector(".password");
-      var button = document.querySelector("button");
-
-      button.addEventListener("click", ()=>{
-
-        var obj={
-            name:myUsername.value,
-            password:myPassword.value
-        };
-
-        fetch("http://localhost:5005/api/v1/users/posts/", {
-            method: "POST",
-            headers:{
-              "content-type":"application/json"
-            },
-            body:JSON.stringify(obj)
-
+      document.addEventListener('DOMContentLoaded', function() {
+        const loginButton = document.querySelector('.login-button');
+        
+        loginButton.addEventListener('click', async function() {
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+          
+          try {
+            const response = await fetch('http://localhost:5005/api/v1/users/posts/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                username: username,
+                password: password
+              })
+            });
+            
+            if (response.ok) {
+              // Successful login logic, e.g., redirect to a dashboard page
+              console.log('Login successful!');
+            } else {
+              // Handle unsuccessful login, e.g., display an error message
+              console.log('Login failed');
+            }
+          } catch (error) {
+            // Handle any network or API errors
+            console.error('Error:', error);
+          }
         });
-      })
+      });
     </script>
-    
 </body>
 </html>
